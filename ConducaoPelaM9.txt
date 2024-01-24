@@ -1,0 +1,30 @@
+
+
+void GerirTraillingStop() {
+
+      if (tbPosition.BuyPosition(iptMagicNumber) == 1 && bSaidaParcialRealizada) { 
+         if (rates[1].close < dValoreMRapida[1]) {
+         
+            double vlGain = tbPosition.GetVlStopGain(iptMagicNumber);
+            double vlLoss = tbPosition.GetVlStopLoss(iptMagicNumber);
+            double newLoss = NormalizeDouble(rates[1].low - 5, _Digits);
+         
+            if ((newLoss > vlLoss) && (newLoss < rates[0].close)) {
+               tbPosition.PositionModify(iptMagicNumber, newLoss, vlGain);
+            }
+         }
+      }
+   
+   
+      if (tbPosition.SellPosition(iptMagicNumber) == 1 && bSaidaParcialRealizada) { 
+         if (rates[1].close > dValoreMRapida[1]) {
+            double vlGain = tbPosition.GetVlStopGain(iptMagicNumber);
+            double vlLoss = tbPosition.GetVlStopLoss(iptMagicNumber);
+            double newLoss = NormalizeDouble(rates[1].high + 5, _Digits);
+         
+            if ((newLoss < vlLoss) && (newLoss > rates[0].close)) {
+               tbPosition.PositionModify(iptMagicNumber, newLoss, vlGain);
+            }
+         }
+      }
+}
